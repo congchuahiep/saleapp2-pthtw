@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.thh.pojo;
+package com.congchuahiep.pojo;
 
 import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
@@ -22,11 +22,13 @@ import java.io.Serializable;
  * @author admin
  */
 @Entity
-@Table(name = "prod_tag")
+@Table(name = "order_detail")
 @NamedQueries({
-    @NamedQuery(name = "ProdTag.findAll", query = "SELECT p FROM ProdTag p"),
-    @NamedQuery(name = "ProdTag.findById", query = "SELECT p FROM ProdTag p WHERE p.id = :id")})
-public class ProdTag implements Serializable {
+    @NamedQuery(name = "OrderDetail.findAll", query = "SELECT o FROM OrderDetail o"),
+    @NamedQuery(name = "OrderDetail.findById", query = "SELECT o FROM OrderDetail o WHERE o.id = :id"),
+    @NamedQuery(name = "OrderDetail.findByUnitPrice", query = "SELECT o FROM OrderDetail o WHERE o.unitPrice = :unitPrice"),
+    @NamedQuery(name = "OrderDetail.findByQuantity", query = "SELECT o FROM OrderDetail o WHERE o.quantity = :quantity")})
+public class OrderDetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -34,17 +36,21 @@ public class ProdTag implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Column(name = "unit_price")
+    private Long unitPrice;
+    @Column(name = "quantity")
+    private Integer quantity;
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Product productId;
-    @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Tag tagId;
+    private SaleOrder orderId;
 
-    public ProdTag() {
+    public OrderDetail() {
     }
 
-    public ProdTag(Integer id) {
+    public OrderDetail(Integer id) {
         this.id = id;
     }
 
@@ -56,6 +62,22 @@ public class ProdTag implements Serializable {
         this.id = id;
     }
 
+    public Long getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(Long unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
     public Product getProductId() {
         return productId;
     }
@@ -64,12 +86,12 @@ public class ProdTag implements Serializable {
         this.productId = productId;
     }
 
-    public Tag getTagId() {
-        return tagId;
+    public SaleOrder getOrderId() {
+        return orderId;
     }
 
-    public void setTagId(Tag tagId) {
-        this.tagId = tagId;
+    public void setOrderId(SaleOrder orderId) {
+        this.orderId = orderId;
     }
 
     @Override
@@ -82,10 +104,10 @@ public class ProdTag implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ProdTag)) {
+        if (!(object instanceof OrderDetail)) {
             return false;
         }
-        ProdTag other = (ProdTag) object;
+        OrderDetail other = (OrderDetail) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -94,7 +116,7 @@ public class ProdTag implements Serializable {
 
     @Override
     public String toString() {
-        return "com.thh.pojo.ProdTag[ id=" + id + " ]";
+        return "com.thh.pojo.OrderDetail[ id=" + id + " ]";
     }
     
 }

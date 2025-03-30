@@ -2,34 +2,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.thh.pojo;
+package com.congchuahiep.pojo;
 
 import jakarta.persistence.Basic;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  *
  * @author admin
  */
 @Entity
-@Table(name = "tag")
+@Table(name = "prod_tag")
 @NamedQueries({
-    @NamedQuery(name = "Tag.findAll", query = "SELECT t FROM Tag t"),
-    @NamedQuery(name = "Tag.findById", query = "SELECT t FROM Tag t WHERE t.id = :id"),
-    @NamedQuery(name = "Tag.findByName", query = "SELECT t FROM Tag t WHERE t.name = :name"),
-    @NamedQuery(name = "Tag.findByTagcol", query = "SELECT t FROM Tag t WHERE t.tagcol = :tagcol")})
-public class Tag implements Serializable {
+    @NamedQuery(name = "ProdTag.findAll", query = "SELECT p FROM ProdTag p"),
+    @NamedQuery(name = "ProdTag.findById", query = "SELECT p FROM ProdTag p WHERE p.id = :id")})
+public class ProdTag implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,24 +34,18 @@ public class Tag implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "name")
-    private String name;
-    @Column(name = "tagcol")
-    private String tagcol;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tagId")
-    private Set<ProdTag> prodTagSet;
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Product productId;
+    @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Tag tagId;
 
-    public Tag() {
+    public ProdTag() {
     }
 
-    public Tag(Integer id) {
+    public ProdTag(Integer id) {
         this.id = id;
-    }
-
-    public Tag(Integer id, String name) {
-        this.id = id;
-        this.name = name;
     }
 
     public Integer getId() {
@@ -65,28 +56,20 @@ public class Tag implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Product getProductId() {
+        return productId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProductId(Product productId) {
+        this.productId = productId;
     }
 
-    public String getTagcol() {
-        return tagcol;
+    public Tag getTagId() {
+        return tagId;
     }
 
-    public void setTagcol(String tagcol) {
-        this.tagcol = tagcol;
-    }
-
-    public Set<ProdTag> getProdTagSet() {
-        return prodTagSet;
-    }
-
-    public void setProdTagSet(Set<ProdTag> prodTagSet) {
-        this.prodTagSet = prodTagSet;
+    public void setTagId(Tag tagId) {
+        this.tagId = tagId;
     }
 
     @Override
@@ -99,10 +82,10 @@ public class Tag implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tag)) {
+        if (!(object instanceof ProdTag)) {
             return false;
         }
-        Tag other = (Tag) object;
+        ProdTag other = (ProdTag) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -111,7 +94,7 @@ public class Tag implements Serializable {
 
     @Override
     public String toString() {
-        return "com.thh.pojo.Tag[ id=" + id + " ]";
+        return "com.thh.pojo.ProdTag[ id=" + id + " ]";
     }
     
 }
