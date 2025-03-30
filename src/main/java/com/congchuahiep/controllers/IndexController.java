@@ -4,6 +4,8 @@
  */
 package com.congchuahiep.controllers;
 
+import com.congchuahiep.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
     
+    @Autowired
+    private CategoryService categoryService;
+    
     /**
      * Endpoint cho request "/"
      * 
@@ -24,6 +29,8 @@ public class IndexController {
      */
     @RequestMapping("/")
     public String index(Model model) {
+        
+        model.addAttribute("categories", this.categoryService.getCates());
         
         model.addAttribute("msg", "Đẹp trai không bao giờ sai");
         return "index";
