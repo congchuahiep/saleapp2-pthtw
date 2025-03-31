@@ -7,10 +7,10 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +19,14 @@ import java.util.Map;
 /**
  * @author admin
  */
+@Repository
 public class ProductRepositoryImpl implements ProductRespository {
-
-    @Autowired
-    private LocalSessionFactoryBean factory;
-
+    private final LocalSessionFactoryBean factory;
     private static final int PAGE_SIZE = 6;
+
+    public ProductRepositoryImpl(LocalSessionFactoryBean factory) {
+        this.factory = factory;
+    }
 
     public List<Product> getProducts(Map<String, String> params) {
         Session s = this.factory.getObject().getCurrentSession();
