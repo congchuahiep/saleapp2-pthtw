@@ -8,9 +8,9 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ import java.util.Map;
  * @author admin
  */
 @Repository
+@Transactional
 public class ProductRepositoryImpl implements ProductRespository {
     private final LocalSessionFactoryBean factory;
     private static final int PAGE_SIZE = 6;
