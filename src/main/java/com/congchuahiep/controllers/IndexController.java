@@ -6,8 +6,11 @@ package com.congchuahiep.controllers;
 
 import com.congchuahiep.repositories.ProductRespository;
 import com.congchuahiep.services.CategoryService;
+import com.congchuahiep.services.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -15,14 +18,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author admin
  */
 @Controller
+@ControllerAdvice
 public class IndexController {
     
     private final CategoryService categoryService;
-    private final ProductRespository productRespository;
+    private final ProductService productService;
 
-    public IndexController(CategoryService categoryService, ProductRespository productRespository) {
+    public IndexController(CategoryService categoryService, ProductService productService) {
         this.categoryService = categoryService;
-        this.productRespository = productRespository;
+        this.productService = productService;
+    }
+
+    /**
+     * Các attribute ở đây sẽ cho phép mọi controller khác sử dụng
+     */
+    @ModelAttribute
+    public void commonResponses(Model model) {
+        model.addAttribute("categories", this.categoryService.getCates());
     }
 
     /**
@@ -32,11 +44,8 @@ public class IndexController {
      */
     @RequestMapping("/")
     public String index(Model model) {
-        
-        model.addAttribute("categories", this.categoryService.getCates());
-        model.addAttribute("products", this.productRespository.getProducts(null));
-        
-        model.addAttribute("msg", "Đẹp trai không bao giờ sai");
+        model.addAttribute("products", this.productService.getProducts(null));
+
         return "index.html";
     }
 }
