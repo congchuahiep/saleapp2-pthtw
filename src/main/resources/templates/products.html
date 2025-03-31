@@ -9,10 +9,10 @@
 <th:block th:replace="base :: header"></th:block>
 
 <main class="container">
-    <h1 class="text-center text-info mt-1">QUẢN TRỊ SẢN PHẨM</h1>
+    <h1 class="text-center mt-1">QUẢN TRỊ SẢN PHẨM</h1>
 
     <!--/*@thymesVar id="product" type="com.congchuahiep.pojo.Product"*/-->
-    <form th:action="@{/products}" th:object="${product}" method="post">
+    <form th:action="@{/products/add}" th:object="${product}" method="post">
         <div class="mb-3">
             <label for="name" class="form-label">Tên sản phẩm</label>
             <input id="name" type="text" class="form-control" th:field="*{name}" placeholder="Tên sản phẩm" required/>
@@ -27,6 +27,15 @@
                 <!--/*@thymesVar id="categories" type="com.congchuahiep.pojo.Category"*/-->
                 <option th:each="c:${categories}" th:text="${c}"></option>
             </select>
+        </div>
+        <div class="mb-3">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{image}" />
+
+            <button class="btn btn-info">
+                <span th:if="${product.id == null}">Thêm sản phẩm</span>
+                <span th:unless="${product.id == null}">Cập nhật sản phẩm</span>
+            </button>
         </div>
     </form>
 </main>

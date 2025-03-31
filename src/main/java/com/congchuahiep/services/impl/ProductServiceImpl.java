@@ -1,11 +1,8 @@
 package com.congchuahiep.services.impl;
 
-import com.congchuahiep.pojo.Category;
 import com.congchuahiep.pojo.Product;
-import com.congchuahiep.repositories.CategoryRepository;
 import com.congchuahiep.repositories.ProductRespository;
 import com.congchuahiep.services.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
