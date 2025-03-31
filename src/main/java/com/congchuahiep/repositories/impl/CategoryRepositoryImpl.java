@@ -11,9 +11,6 @@ import org.hibernate.Session;
 import java.util.List;
 
 import com.congchuahiep.repositories.CategoryRepository;
-
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 @Transactional
 public class CategoryRepositoryImpl implements CategoryRepository {
-    
-    @Autowired
-    private LocalSessionFactoryBean factory;
+    private final LocalSessionFactoryBean factory;
+
+    public CategoryRepositoryImpl(LocalSessionFactoryBean factory) {
+        this.factory = factory;
+    }
 
     @Override
     public List<Category> getCates() {
