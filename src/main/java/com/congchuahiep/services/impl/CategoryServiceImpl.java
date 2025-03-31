@@ -18,8 +18,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     
-    @Autowired
-    private CategoryRepository cateRepository;
+    private final CategoryRepository cateRepository;
+
+    public CategoryServiceImpl(CategoryRepository cateRepository) {
+        this.cateRepository = cateRepository;
+    }
 
     @Override
     public List<Category> getCates() {
