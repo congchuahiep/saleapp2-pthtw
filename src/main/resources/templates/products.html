@@ -23,9 +23,9 @@
         </div>
         <div class="mb-3">
             <label for="category" class="form-label">Danh mục sản phẩm</label>
-            <select id="category" class="form-control">
+            <select id="category" class="form-control" th:field="*{categoryId}">
                 <!--/*@thymesVar id="categories" type="com.congchuahiep.pojo.Category"*/-->
-                <option th:each="c:${categories}" th:text="${c}"></option>
+                <option th:each="c:${categories}" th:text="${c.name}" th:value="${c.id}"></option>
             </select>
         </div>
         <div class="mb-3">
