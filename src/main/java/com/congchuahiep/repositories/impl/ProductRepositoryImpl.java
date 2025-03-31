@@ -76,4 +76,31 @@ public class ProductRepositoryImpl implements ProductRespository {
 
         return query.getResultList();
     }
+
+    public Product getProductById(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        return s.get(Product.class, id);
+
+    }
+
+    public void deleteProduct(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        Product p = this.getProductById(id);
+        s.remove(p);
+
+    }
+
+    public Product addOrUpdate(Product p) {
+        Session s = this.factory.getObject().getCurrentSession();
+        if (p.getId() == null) {
+            s.persist(p);
+        } else {
+            s.merge(p);
+        }
+
+        s.refresh(p);
+
+        return p;
+
+    }
 }

@@ -7,4 +7,7 @@ import java.util.Map;
 
 public interface ProductRespository {
     List<Product> getProducts(Map<String, String> params);
+    Product getProductById(int id);
+    Product addOrUpdate(Product p);
+    void deleteProduct(int id);
 }
