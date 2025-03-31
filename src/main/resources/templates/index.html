@@ -1,7 +1,7 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Home Page</title>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+    <title>Home Page</title>
     <th:block th:replace="base :: styles"></th:block>
 </head>
 <body>
@@ -25,28 +25,24 @@
 
     <table class="table table-hover">
         <thead>
-            <tr>
-                <th></th>
-                <th></th>
-                <th>Email</th>
-            </tr>
+        <tr>
+            <th></th>
+            <th>Id</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá sản phẩm</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-            </tr>
-            <tr>
-                <td>Mary</td>
-                <td>Moe</td>
-                <td>mary@example.com</td>
-            </tr>
-            <tr>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>july@example.com</td>
-            </tr>
+        <!--/*@thymesVar id="products" type="com.congchuahiep.pojo.Product"*/-->
+        <tr th:each="p:${products}">
+            <td>
+                <img th:src="${p.image}" width="200">
+            </td>
+            <td th:text="${p.id}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}"></td>
+        </tr>
         </tbody>
     </table>
 </main>
