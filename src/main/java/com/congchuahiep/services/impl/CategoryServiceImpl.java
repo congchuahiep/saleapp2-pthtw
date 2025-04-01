@@ -8,6 +8,8 @@ import com.congchuahiep.pojo.Category;
 import com.congchuahiep.repositories.CategoryRepository;
 import com.congchuahiep.services.CategoryService;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,6 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
     
     private final CategoryRepository cateRepository;
 
+    @Autowired
     public CategoryServiceImpl(CategoryRepository cateRepository) {
         this.cateRepository = cateRepository;
     }
